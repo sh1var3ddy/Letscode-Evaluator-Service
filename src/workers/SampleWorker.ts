@@ -8,7 +8,7 @@ export default function SampleWorker(queueName:string){
         async (job:Job)=>{
             if(job.name==="SampleJob"){
                 const sampleJobInstance = new SampleJob(job.data);
-                sampleJobInstance.handle(job);
+                sampleJobInstance.handle();
                 return true;
             }
         }

@@ -4,6 +4,6 @@ import { pingCheck } from "../../controllers/pingController";
 
 const v1Router:Router = express.Router();
 
-v1Router.get("/ping", pingCheck);  
+v1Router.get("/ping", pingCheck as any);  
 
 export default v1Router;
