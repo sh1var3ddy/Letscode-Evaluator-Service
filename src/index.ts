@@ -4,6 +4,7 @@ import apiRouter from "./routes";
 import sampleQueueProducers from "./producers/sampleQueueProducers";
 import SampleWorker from "./workers/SampleWorker";
 import bodyParser from "body-parser";
+import runPython from "./containers/runPythonDocker";
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,6 +18,10 @@ app.listen(serverConfig.PORT,()=>{
     sampleQueueProducers('SampleJob',{
         name:"Shiva",
         college:"UC",
-        degree:"Msaters"
+        degree:"Masters"
     });
+    const code =  `x = input()
+print("Value of x is",x)
+    `
+    runPython(code,"10");
 });
