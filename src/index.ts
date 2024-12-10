@@ -1,14 +1,13 @@
 import express, { Router }  from "express";
 import serverConfig from "./config/serverConfig";
 import apiRouter from "./routes";
-import sampleQueueProducers from "./producers/sampleQueueProducers";
+// import sampleQueueProducers from "./producers/sampleQueueProducers";
 import SampleWorker from "./workers/SampleWorker";
 import bodyParser from "body-parser";
-// import runPython from "./containers/runPythonDocker";
-// import runJava from "./containers/runJavaDocker";
-import runCpp from "./containers/runCppDocker";
-// import pullImage from "./containers/pullImage";
-// import { CPP_IMAGE } from "./utils/constants";
+import SubmissionWorker from "./workers/SubmissionWorker";
+import submissionQueueProducer from "./producers/submissionQueueProducer";
+import { SUBMISSION_QUEUE } from "./utils/constants";
+
 
 const app = express();
 app.use(bodyParser.json());
@@ -19,11 +18,13 @@ app.use("/api",apiRouter as Router);
 app.listen(serverConfig.PORT,()=>{
     console.log(`App listening on port ${serverConfig.PORT}`);
     SampleWorker("SampleQueue");
-    sampleQueueProducers('SampleJob',{
-        name:"Shiva",
-        college:"UC",
-        degree:"Masters"
-    });
+    SubmissionWorker(SUBMISSION_QUEUE);
+    
+    // sampleQueueProducers('SampleJob',{
+    //     name:"Shiva",
+    //     college:"UC",
+    //     degree:"Masters"
+    // });
 //     const code =  `x = input()
 // print("Value of x is",x)
 //     `
@@ -42,8 +43,13 @@ app.listen(serverConfig.PORT,()=>{
         return 0;
     }
     `;
-    const inputTestCase = `
+    const inputCase = `
     10
     `
-    runCpp(code,inputTestCase);
+    submissionQueueProducer({"1234":{
+        language:"CPP",
+        code,
+        inputCase
+    }})
+    // runCpp(code,inputTestCase);
 });
