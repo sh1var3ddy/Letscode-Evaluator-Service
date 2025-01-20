@@ -9,7 +9,7 @@ import CodeExecutorStrategy, { ExecutionResponse } from '../types/CodeExecutor';
 
 
 class PythonExecutor implements CodeExecutorStrategy{
-    async execute(code: string, inputTestCase: string): Promise<ExecutionResponse> {
+    async execute(code: string, inputTestCase: string,outputTestCase:string): Promise<ExecutionResponse> {
         console.log("Initializing python new docker container");
         pullImage(PYTHON_IMAGE);
         let runCommand = `echo '${code.replace(/'/g,`'\\"`)}' > test.py && echo '${inputTestCase}' | python3 test.py`;

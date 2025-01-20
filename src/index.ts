@@ -5,7 +5,6 @@ import apiRouter from "./routes";
 import SampleWorker from "./workers/SampleWorker";
 import bodyParser from "body-parser";
 import SubmissionWorker from "./workers/SubmissionWorker";
-import submissionQueueProducer from "./producers/submissionQueueProducer";
 import { SUBMISSION_QUEUE } from "./utils/constants";
 
 
@@ -29,27 +28,27 @@ app.listen(serverConfig.PORT,()=>{
 // print("Value of x is",x)
 //     `
 
-    const code = `
-    #include<iostream>
-    using namespace std;
-    int main(){
-        int x;
-        cin>>x;
-        cout<<"Value of x is "<<x<<endl;
-        for(int i=0;i<x;i++){
-            cout<<i<<" ";
-        }
-        cout<<endl;
-        return 0;
-    }
-    `;
-    const inputCase = `
-    10
-    `
-    submissionQueueProducer({"1234":{
-        language:"CPP",
-        code,
-        inputCase
-    }})
+    // const code = `
+    // #include<iostream>
+    // using namespace std;
+    // int main(){
+    //     int x;
+    //     cin>>x;
+    //     cout<<"Value of x is "<<x<<endl;
+    //     for(int i=0;i<x;i++){
+    //         cout<<i<<" ";
+    //     }
+    //     cout<<endl;
+    //     return 0;
+    // }
+    // `;
+    // const inputCase = `
+    // 10
+    // `
+    // submissionQueueProducer({"1234":{
+    //     language:"CPP",
+    //     code,
+    //     inputCase
+    // }})
     // runCpp(code,inputTestCase);
 });
