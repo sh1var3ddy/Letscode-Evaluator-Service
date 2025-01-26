@@ -38,7 +38,12 @@ class PythonExecutor implements CodeExecutorStrategy{
         })
         try{    
             const codeResponse:string = await this.fetchDecodedStream(loggerStream,rawLogBuffer);
-            return {output:codeResponse,status:"COMPLETED"};
+            if(codeResponse.trim()=== outputTestCase.trim()){
+                return {output:codeResponse,status:"SUCCESS"};
+            }else{
+                return {output:codeResponse,status:"WA"};
+            }
+            // return {output:codeResponse,status:"COMPLETED"};
         }catch(error){
             return {output:error as string,status:"INCOMPLETE"};
         }finally{

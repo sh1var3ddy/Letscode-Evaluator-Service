@@ -9,6 +9,9 @@ async function createContainer(imageName:string,cmdExecutable:string[]){
         AttachStdin:true,
         AttachStdout:true,
         Tty:false,
+        HostConfig:{
+            Memory:1024*1024*512, // max space allocated to each container 
+        },
         OpenStdin:true
     })
     return container
